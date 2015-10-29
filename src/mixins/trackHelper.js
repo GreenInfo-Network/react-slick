@@ -15,7 +15,10 @@ export var getTrackCSS = function(spec) {
   var trackWidth;
 
   if (spec.variableWidth) {
-    trackWidth = (spec.slideCount + 2*spec.slidesToShow) * spec.slideWidth;
+    // trackWidth = (spec.slideCount + 2*spec.slidesToShow) * spec.slideWidth;
+
+    // https://github.com/kenwheeler/slick/blob/master/slick/slick.js#L1747
+    trackWidth = 5000 * spec.slideCount;
   } else if (spec.centerMode) {
     trackWidth = (spec.slideCount + 2*(spec.slidesToShow + 1)) * spec.slideWidth;
   } else {
