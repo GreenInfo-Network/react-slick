@@ -46,6 +46,7 @@ export var InnerSlider = React.createClass({
     window.addEventListener('resize', this.onWindowResized);
 
     // TODO: Fix this hack to get centerMode to work with variableWidth
+    const context = this;
     setTimeout(function(){
       context.onWindowResized();
     }, 1);

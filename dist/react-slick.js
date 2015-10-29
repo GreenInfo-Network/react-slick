@@ -247,6 +247,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    window.addEventListener('resize', this.onWindowResized);
 
 	    // TODO: Fix this hack to get centerMode to work with variableWidth
+	    var context = this;
 	    setTimeout(function () {
 	      context.onWindowResized();
 	    }, 1);
