@@ -39,11 +39,16 @@ export var InnerSlider = React.createClass({
       });
     }
   },
-  componentDidMount: function () {
+  componentDidMount: function componentDidMount() {
     // Hack for autoplay -- Inspect Later
     this.initialize(this.props);
     this.adaptHeight();
-    window.addEventListener('resize', this.onWindowResized);
+
+    if (window.addEventListener) {
+      window.addEventListener('resize', this.onWindowResized);
+    } else {
+      window.attachEvent('onresize', this.onWindowResized);
+    }
 
     // TODO: Fix this hack to get centerMode to work with variableWidth
     const context = this;
@@ -51,13 +56,20 @@ export var InnerSlider = React.createClass({
       context.onWindowResized();
     }, 1);
   },
-  componentWillUnmount: function () {
-    window.removeEventListener('resize', this.onWindowResized);
+  componentWillUnmount: function componentWillUnmount() {
+    if (window.addEventListener) {
+      window.removeEventListener('resize', this.onWindowResized);
+    } else {
+      window.detachEvent('onresize', this.onWindowResized);
+    }
     if (this.state.autoPlayTimer) {
       window.clearTimeout(this.state.autoPlayTimer);
     }
   },
   componentWillReceiveProps: function(nextProps) {
+    if (this.props.slickGoTo != nextProps.slickGoTo) {
+      this.setState({currentSlide: nextProps.slickGoTo});
+    }
     this.update(nextProps);
   },
   componentDidUpdate: function () {
