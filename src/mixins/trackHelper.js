@@ -1,4 +1,5 @@
 'use strict';
+import ReactDOM from 'react-dom';
 
 var checkSpecKeys = function (spec, keysArray) {
   return keysArray.reduce((value, key) => {
@@ -14,7 +15,10 @@ export var getTrackCSS = function(spec) {
   var trackWidth;
 
   if (spec.variableWidth) {
-    trackWidth = (spec.slideCount + 2*spec.slidesToShow) * spec.slideWidth;
+    // trackWidth = (spec.slideCount + 2*spec.slidesToShow) * spec.slideWidth;
+
+    // https://github.com/kenwheeler/slick/blob/master/slick/slick.js#L1747
+    trackWidth = 5000 * spec.slideCount;
   } else if (spec.centerMode) {
     trackWidth = (spec.slideCount + 2*(spec.slidesToShow + 1)) * spec.slideWidth;
   } else {
@@ -93,17 +97,17 @@ export var getTrackLeft = function (spec) {
   if (spec.variableWidth === true) {
       var targetSlideIndex;
       if(spec.slideCount <= spec.slidesToShow || spec.infinite === false) {
-          targetSlide = spec.trackRef.getDOMNode().childNodes[spec.slideIndex];
+          targetSlide = ReactDOM.findDOMNode(spec.trackRef).childNodes[spec.slideIndex];
       } else {
           targetSlideIndex = (spec.slideIndex + spec.slidesToShow);
-          targetSlide = spec.trackRef.getDOMNode().childNodes[targetSlideIndex];
+          targetSlide = ReactDOM.findDOMNode(spec.trackRef).childNodes[targetSlideIndex];
       }
       targetLeft = targetSlide ? targetSlide.offsetLeft * -1 : 0;
       if (spec.centerMode === true) {
           if(spec.infinite === false) {
-              targetSlide = spec.trackRef.getDOMNode().children[spec.slideIndex];
+              targetSlide = ReactDOM.findDOMNode(spec.trackRef).children[spec.slideIndex];
           } else {
-              targetSlide = spec.trackRef.getDOMNode().children[(spec.slideIndex + spec.slidesToShow + 1)];
+              targetSlide = ReactDOM.findDOMNode(spec.trackRef).children[(spec.slideIndex + spec.slidesToShow + 1)];
           }
 
           targetLeft = targetSlide ? targetSlide.offsetLeft * -1 : 0;
