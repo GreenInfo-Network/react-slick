@@ -11,7 +11,8 @@ var helpers = {
     var slideCount = React.Children.count(props.children);
     var listWidth = this.getWidth(ReactDOM.findDOMNode(this.refs.list));
     var trackWidth = this.getWidth(ReactDOM.findDOMNode(this.refs.track));
-    var slideWidth = this.getWidth(ReactDOM.findDOMNode(this))/props.slidesToShow;
+    var slideWidth = (props.slideHasThisWidth) ? props.slideHasThisWidth :
+      this.getWidth(ReactDOM.findDOMNode(this))/props.slidesToShow;
 
     var currentSlide = props.rtl ? slideCount - 1 - props.initialSlide : props.initialSlide;
 
@@ -41,7 +42,8 @@ var helpers = {
     var slideCount = React.Children.count(props.children);
     var listWidth = this.getWidth(ReactDOM.findDOMNode(this.refs.list));
     var trackWidth = this.getWidth(ReactDOM.findDOMNode(this.refs.track));
-    var slideWidth = this.getWidth(ReactDOM.findDOMNode(this))/props.slidesToShow;
+    var slideWidth = (props.slideHasThisWidth) ? props.slideHasThisWidth :
+      this.getWidth(ReactDOM.findDOMNode(this))/props.slidesToShow;
 
     this.setState({
       slideCount: slideCount,
@@ -127,6 +129,7 @@ var helpers = {
     }
 
     targetSlide = index;
+
     if (targetSlide < 0) {
       if(this.props.infinite === false) {
         currentSlide = 0;
